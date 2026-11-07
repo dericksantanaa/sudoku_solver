@@ -25,7 +25,7 @@ def can_place(board, row, column, digit):
     if digit in board[row, :] or digit in board[:, column]:
         return False
 
-    # Round down to the top-left corner of this cell's 3-by-3 box.
+    # Round down to the top left corner of this cell's 3x3
     box_top = (row // 3) * 3
     box_left = (column // 3) * 3
     box = board[box_top:box_top + 3, box_left:box_left + 3]
@@ -46,7 +46,7 @@ def backtrack(board):
         if backtrack(board):
             return True
 
-        # This guess led to a dead end. Erase it and try the next digit.
+        # This guess led to a dead end. Erase it and try the next digit
         board[row, column] = 0
 
     return False
@@ -62,7 +62,7 @@ def solve(puzzle):
     board = puzzle.copy()
     for row, column in np.argwhere(puzzle != 0):
         digit = puzzle[row, column]
-        # Temporarily hide this clue to check for duplicates elsewhere.
+        # Temporarily hide this clue to check for duplicates elsewhere
         board[row, column] = 0
         if not can_place(board, row, column, digit):
             raise ValueError(f"Conflicting clue at row {row + 1}, column {column + 1}.")
